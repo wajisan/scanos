@@ -3,7 +3,8 @@ dashboard/node_modules/
 dashboard/.nuxt/
 
 # Ignorer les données de PostgreSQL
-database-postgre/postgresql_data/
+database-postgre/postgresql_data/*
+!database-postgre/postgresql_data/.gitkeep
 
 # Ignorer les fichiers Docker
 *.log
