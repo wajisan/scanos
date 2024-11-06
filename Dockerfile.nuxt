@@ -1,0 +1,15 @@
+# Dockerfile.nuxt
+FROM node:20
+
+WORKDIR /app
+
+COPY dashboard/package*.json ./
+RUN npm install
+
+COPY dashboard .
+
+# Build pour la production
+RUN npm run build
+
+EXPOSE 3000
+CMD ["npm", "start"]

@@ -1,0 +1,11 @@
+# Ignorer node_modules dans dashboard
+dashboard/node_modules/
+dashboard/.nuxt/
+dashboard/.git/
+
+# Ignorer les données de PostgreSQL
+postgres_data/
+
+# Ignorer les fichiers Docker
+*.log
+docker-compose.override.yml

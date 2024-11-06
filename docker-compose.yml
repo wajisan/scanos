@@ -1,0 +1,41 @@
+version: "3.8"
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
+    volumes:
+      - ./database-postgre/init.sql:/docker-entrypoint-initdb.d/init.sql  # Script d'initialisation
+      - ./database-postgre/postgresql_data:/var/lib/postgresql/data  # Volume persistant personnalisé
+    ports:
+      - "5432:5432"
+      
+  nuxt:
+    build:
+      context: .
+      dockerfile: Dockerfile.nuxt
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+  python-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.python
+    depends_on:
+      - db
+
+  ######  DEBUG DATABASE##### 
+  adminer:
+    image: adminer
+    ports:
+      - "8080:8080"  # Accéder à Adminer sur http://localhost:8080
+    depends_on:
+      - db  # Dépend de PostgreSQL
+  ###### DEBUG DATABASE 
+
+volumes:
+  postgres_data: {}  # Ceci peut être conservé ou supprimé si tu utilises un chemin personnalisé
